@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
@@ -22,15 +25,21 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('questions.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        //
+        $question = new Question();
+        $question->title = $request->title;
+        $question->slug = Str::slug($request->title);
+        $question->body = $request->body;
+        $question->user_id = Auth::user()->id;
+        $question->save();
+        return redirect()->route('questions.index')->with('success', 'Your question have been submitted');
     }
 
     /**
