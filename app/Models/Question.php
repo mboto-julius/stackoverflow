@@ -17,4 +17,9 @@ class Question extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
 }

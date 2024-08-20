@@ -13,8 +13,12 @@
                     @foreach ($questions as $question)
                         <div class="media">
                             <div class="media-body">
-                                <h4 class="mt-0">{{ $question->title }}</h4>
-                                {!! Str::words($question->body, 80, '...') !!}
+                                <h4 class="mt-0"><a href="{{ route('questions.show', $question->slug) }}" class="text-decoration-none">{{ $question->title }}</a></h4>
+                                <p class="lead">Asked by 
+                                    <a href="" class="text-decoration-none">{{ $question->user->name }}</a>
+                                    <small class="text-muted">{{ $question->created_date }}</small>
+                                </p>
+                                <p>{!! Str::words($question->body, 80, '...') !!}</p>
                             </div>
                         </div>
                         <hr>
