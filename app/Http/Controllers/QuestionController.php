@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
@@ -14,7 +14,7 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::with('user')->latest()->paginate(5);
-        return view('backend.questions.index', compact('questions'));
+        return view('questions.index', compact('questions'));
     }
 
     /**

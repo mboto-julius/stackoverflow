@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Backend\QuestionController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
