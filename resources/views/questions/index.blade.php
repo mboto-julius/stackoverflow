@@ -31,7 +31,14 @@
                                 <div class="d-flex align-items-center">
                                     <h4 class="mt-0"><a href="{{ route('questions.show', $question->slug) }}" class="text-decoration-none">{{ $question->title }}</a></h4>
                                     <div class="ms-auto">
-                                        <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                        <div class="d-flex gap-1">
+                                            <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                            <form action="{{ route('questions.destroy', $question->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <p class="lead">Asked by 

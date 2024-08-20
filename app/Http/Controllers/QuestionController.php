@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionRequest;
 use App\Models\Question;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -83,6 +84,15 @@ class QuestionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $question = Question::find($id);
+        if (!$question) {
+            return back()->with('error', 'Question not found');
+        }
+        try {
+            $question->delete();
+            return redirect()->route('questions.index')->with('success', 'Question deleted successfully');
+        } catch (Exception $e) {
+            return back()->with('error', 'Unable to delete question');
+        }
     }
 }
