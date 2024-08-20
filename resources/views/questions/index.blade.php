@@ -28,7 +28,12 @@
                                 </div>
                             </div>
                             <div>
-                                <h4 class="mt-0"><a href="{{ route('questions.show', $question->slug) }}" class="text-decoration-none">{{ $question->title }}</a></h4>
+                                <div class="d-flex align-items-center">
+                                    <h4 class="mt-0"><a href="{{ route('questions.show', $question->slug) }}" class="text-decoration-none">{{ $question->title }}</a></h4>
+                                    <div class="ms-auto">
+                                        <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    </div>
+                                </div>
                                 <p class="lead">Asked by 
                                     <a href="" class="text-decoration-none">{{ $question->user->name }}</a>
                                     <small class="text-muted">{{ $question->created_date }}</small>

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\QuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class QuestionController extends Controller
@@ -31,7 +32,7 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreQuestionRequest $request)
+    public function store(QuestionRequest $request)
     {
         $question = new Question();
         $question->title = $request->title;
@@ -39,7 +40,7 @@ class QuestionController extends Controller
         $question->body = $request->body;
         $question->user_id = Auth::user()->id;
         $question->save();
-        return redirect()->route('questions.index')->with('success', 'Your question have been submitted');
+        return redirect()->route('questions.index')->with('success', 'Your question has been submitted');
     }
 
     /**
@@ -47,7 +48,6 @@ class QuestionController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -55,15 +55,27 @@ class QuestionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $question = Question::find($id);
+        if (!$question) {
+            return back()->with('error', 'Question not found');
+        }
+        return view('questions.edit', compact('question'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(QuestionRequest $request, string $id)
     {
-        //
+        $question = Question::find($id);
+        if (!$question) {
+            return back()->with('error', 'Question not found');
+        }
+        $question->title = $request->title;
+        $question->slug = Str::slug($request->title);
+        $question->body = $request->body;
+        $question->save();
+        return redirect()->route('questions.index')->with('success', 'Your question has been updated');
     }
 
     /**
