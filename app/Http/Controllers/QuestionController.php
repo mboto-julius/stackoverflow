@@ -47,8 +47,14 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($slug)
     {
+        $question = Question::whereSlug($slug)->first();
+        if (!$question) {
+            return back()->with('error', 'Question not found');
+        }
+        $question->increment('views');
+        return view('questions.show', compact('question'));
     }
 
     /**
