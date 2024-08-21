@@ -14,6 +14,11 @@ use Illuminate\Support\Str;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware('auth', ['except' => 'index', 'show']);
+        $this->middleware(['auth'])->except("index", "show");
+    }
     /**
      * Display a listing of the resource.
      */
@@ -67,9 +72,7 @@ class QuestionController extends Controller
         if (!$question) {
             return back()->with('error', 'Question not found');
         }
-        if (Gate::denies('update-question', $question)) {
-            return back()->with('error', 'Access denied, You cant edit questions asked by others');
-        }
+        $this->authorize("update", $question);
         return view('questions.edit', compact('question'));
     }
 
@@ -82,9 +85,7 @@ class QuestionController extends Controller
         if (!$question) {
             return back()->with('error', 'Question not found');
         }
-        if (Gate::denies('update-question', $question)) {
-            return back()->with('error', 'Access denied, You cant edit questions asked by others');
-        }
+        $this->authorize("update", $question);
         $question->title = $request->title;
         $question->slug = Str::slug($request->title);
         $question->body = $request->body;
@@ -101,9 +102,7 @@ class QuestionController extends Controller
         if (!$question) {
             return back()->with('error', 'Question not found');
         }
-        if (Gate::denies('delete-question', $question)) {
-            return back()->with('error', 'Access denied, You cant delete questions asked by others');
-        }
+        $this->authorize("delete", $question);
         try {
             $question->delete();
             return redirect()->route('questions.index')->with('success', 'Question deleted successfully');

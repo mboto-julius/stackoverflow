@@ -26,13 +26,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
         Paginator::useBootstrapFour();
-
-        Gate::define('update-question', function (User $user, Question $question) {
-            return $user->id === $question->user_id;
-        });
-
-        Gate::define('delete-question', function (User $user, Question $question) {
-            return $user->id === $question->user_id;
-        });
     }
 }

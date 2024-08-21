@@ -32,16 +32,16 @@
                                     <h4 class="mt-0"><a href="{{ route('questions.show', $question->slug) }}" class="text-decoration-none">{{ $question->title }}</a></h4>
                                     <div class="ms-auto">
                                         <div class="d-flex gap-1">
-                                            @if(Auth::user()->can('update-question', $question))
+                                            @can('update', $question)
                                                 <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                            @endif
-                                            @if(Auth::user()->can('update-question', $question))
+                                            @endcan
+                                            @can('delete', $question)
                                                 <form action="{{ route('questions.destroy', $question->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                                 </form>
-                                            @endif
+                                            @endcan
                                         </div>
                                     </div>
                                 </div>
