@@ -8,6 +8,7 @@ use App\Models\Question;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -66,6 +67,9 @@ class QuestionController extends Controller
         if (!$question) {
             return back()->with('error', 'Question not found');
         }
+        if (Gate::denies('update-question', $question)) {
+            return back()->with('error', 'Access denied, You cant edit questions asked by others');
+        }
         return view('questions.edit', compact('question'));
     }
 
@@ -77,6 +81,9 @@ class QuestionController extends Controller
         $question = Question::find($id);
         if (!$question) {
             return back()->with('error', 'Question not found');
+        }
+        if (Gate::denies('update-question', $question)) {
+            return back()->with('error', 'Access denied, You cant edit questions asked by others');
         }
         $question->title = $request->title;
         $question->slug = Str::slug($request->title);
@@ -93,6 +100,9 @@ class QuestionController extends Controller
         $question = Question::find($id);
         if (!$question) {
             return back()->with('error', 'Question not found');
+        }
+        if (Gate::denies('delete-question', $question)) {
+            return back()->with('error', 'Access denied, You cant delete questions asked by others');
         }
         try {
             $question->delete();
