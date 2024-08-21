@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug');
             $table->text('body');
             $table->unsignedInteger('views')->default(0);
-            $table->unsignedInteger('answers')->default(0);
+            $table->unsignedInteger('answers_count')->default(0);
             $table->integer('votes')->default(0);
             $table->unsignedInteger('best_answer_id')->nullable();
             $table->timestamps();
