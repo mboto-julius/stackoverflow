@@ -22,6 +22,11 @@ class Answer extends Model
         return $this->belongsTo(Question::class);
     }
 
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
     // The code will count answers for the specific question when created
     public static function boot()
     {

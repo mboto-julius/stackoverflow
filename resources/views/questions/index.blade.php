@@ -52,9 +52,12 @@
                                 <p>{!! Str::words($question->body, 100, '...') !!}</p>
                             </div>
                         </div>
-                        <hr>
+                        @if (!$loop->last)
+                            <hr>
+                        @endif
                     @endforeach
-
+                </div>
+                <div class="card-footer">
                     <div class="d-flex justify-content-center">
                         {{ $questions->links() }}
                     </div>

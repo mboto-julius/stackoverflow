@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
             ->each(function ($u) {
                 $u->questions()->saveMany(
                     \App\Models\Question::factory()->count(rand(1, 5))->make()
-                )
-                ->each(function ($q){
-                    $q->answers()->saveMany(
-                        \App\Models\Answer::factory()->count(rand(1, 5))->make() 
-                    );
+                )->each(function ($q) {
+                    $answers = \App\Models\Answer::factory()->count(rand(1, 5))->make();
+                    $q->answers()->saveMany($answers);
+
+                    // Update the answers_count field after saving answers
+                    $q->update(['answers_count' => $q->answers()->count()]);
                 });
-            }
-        );
+            });
     }
 }
