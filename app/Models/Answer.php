@@ -12,6 +12,8 @@ class Answer extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['body', 'user_id', 'question_id'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -27,7 +29,7 @@ class Answer extends Model
         return $this->created_at->diffForHumans();
     }
 
-    // The code will count answers for the specific question when created
+    // The code will count answers for the specific question when created (adding fake data issue using factory)
     public static function boot()
     {
         parent::boot();

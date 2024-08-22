@@ -7,8 +7,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3>Ask Question</h3>
-                        <a href="{{ route('questions.index') }}" class="btn btn-outline-secondary">Back</a>
+                        <h3>Ask a public question</h3>
+                        <a href="{{ route('questions.index') }}" class="btn btn-outline-danger">Back</a>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-outline-primary">Submit</button>
+                            <button type="submit" class="btn btn-outline-primary">Post Your Question</button>
                         </div>
                     </form>
                 </div>
