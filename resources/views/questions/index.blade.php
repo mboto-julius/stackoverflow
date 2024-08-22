@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h3>Questions</h3>
+                        <h3>All Questions ({{ allQuestions() }})</h3>
                         <a href="{{ route('questions.create') }}" class="btn btn-outline-secondary">Ask Question</a>
                     </div>
                 </div>
