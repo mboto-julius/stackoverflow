@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Question;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,8 +55,17 @@ class AnswerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Question $question, Answer $answer)
     {
-        //
+        if (!$question) {
+            return back()->with('error', 'Answer not found');
+        }
+        $this->authorize('delete', $answer);
+        try {
+            $answer->delete();
+            return back()->with('success', 'Answer deleted successfully');
+        } catch (Exception $e) {
+            return back()->with('error', 'Unable to delete answer');
+        }
     }
 }

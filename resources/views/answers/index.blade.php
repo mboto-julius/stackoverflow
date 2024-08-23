@@ -18,8 +18,8 @@
                                 <a title="This answer is not useful" href="" class="vote-down off">
                                     <i class="bi bi-caret-down-fill" style="font-size: 34px; color:#909090;"></i>
                                 </a>
-                                <a href="" class="d-flex flex-column gap-0 text-decoration-none">
-                                    <i title="Mark this answer as best answer" class="bi bi-check-lg" style="font-size: 40px; color:#11BA57;"></i>
+                                <a href="" title="Mark this answer as best answer" class="d-flex flex-column gap-0 text-decoration-none">
+                                    <i class="bi bi-check-lg" style="font-size: 40px; color:#11BA57;"></i>
                                 </a>
                             </div>
                         </div>

@@ -29,12 +29,19 @@ class Answer extends Model
         return $this->created_at->diffForHumans();
     }
 
-    // The code will count answers for the specific question when created (adding fake data issue using factory)
     public static function boot()
     {
         parent::boot();
         static::created(function ($answer) {
             $answer->question->increment('answers_count');
+        });
+        static::deleted(function ($answer) {
+            $question = $answer->question;
+            $answer->question->decrement('answers_count');
+            if($question->best_answer_id === $answer->id){
+                $question->best_answer_id = NULL;
+                $question->save();
+            }
         });
     } 
 }
