@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,17 +30,25 @@ class AnswerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Question $question, Answer $answer)
     {
-        //
+        $this->authorize('update', $answer);
+        return view('answers.edit', compact('question', 'answer'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Question $question, Answer $answer)
     {
-        //
+        $this->authorize('update', $answer);
+        $request->validate([
+            'body' => 'required'
+        ]);
+        $answer->update([
+            'body' => $request->body,
+        ]);
+        return redirect()->route('questions.show', $question->slug)->with('success', 'Your answer has been updated successfully');
     }
 
     /**

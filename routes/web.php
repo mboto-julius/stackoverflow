@@ -29,4 +29,9 @@ Route::get('questions/{slug}', [QuestionController::class, 'show'])->name('quest
 
 Route::controller(AnswerController::class)->group(function () {
     Route::post('questions/{question}/answers', 'store')->name('answers.store');
+    Route::get('/questions/{question}/answers/{answer}/edit', 'edit')->name('answers.edit');
+    Route::put('/questions/{question}/answers/{answer}', 'update')->name('answers.update');
+    Route::delete('/questions/{question}/answers/{answer}', 'destroy')->name('answers.destroy');
 });
+
+

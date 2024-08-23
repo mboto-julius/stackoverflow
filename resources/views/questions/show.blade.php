@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            @include('layouts.message')
             <div class="card">
-                @include('layouts.message')
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3>{{ $question->title }}</h3>
@@ -23,8 +23,8 @@
                                 <i class="bi bi-caret-down-fill" style="font-size: 34px; color:#909090;"></i>
                             </a>
                             <a href="" class="d-flex flex-column gap-0 text-decoration-none">
-                                <i title="Click to mark as favorite question (click again to undo)" class="bi bi-star-fill" style="font-size: 30px; color:#4C5117;"></i>
-                                <span class="favourites-count" style="color:#4C5117;">129</span>
+                                <i title="Click to mark as favorite question (click again to undo)" class="bi bi-star-fill" style="font-size: 30px; color:#000DFF;"></i>
+                                <span class="favourites-count" style="color:#000DFF;">129</span>
                             </a>
                         </div>
                         <div class="d-flex flex-column">
