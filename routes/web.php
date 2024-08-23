@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcceptAnswerController;
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Auth;
@@ -34,4 +35,5 @@ Route::controller(AnswerController::class)->group(function () {
     Route::delete('/questions/{question}/answers/{answer}', 'destroy')->name('answers.destroy');
 });
 
+Route::post('answers/{answer}/accept', AcceptAnswerController::class)->name('answers.accept');
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Answer;
 
 class Question extends Model
 {
@@ -45,4 +46,9 @@ class Question extends Model
         return $this->hasMany(Answer::class)->latest();
     }
 
+    public function acceptBestAnswer(Answer $answer)
+    {
+        $this->best_answer_id = $answer->id;
+        $this->save();
+    }
 }

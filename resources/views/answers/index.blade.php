@@ -18,9 +18,23 @@
                                 <a title="This answer is not useful" href="" class="vote-down off">
                                     <i class="bi bi-caret-down-fill" style="font-size: 34px; color:#909090;"></i>
                                 </a>
-                                <a href="" title="Mark this answer as best answer" class="{{ $answer->status }} d-flex flex-column gap-0 text-decoration-none">
-                                    <i class="bi bi-check-lg" style="font-size: 40px;"></i>
-                                </a>
+                                @can('accept', $answer)
+                                    <a title="Mark this answer as best answer"
+                                        class="{{ $answer->status }} d-flex flex-column gap-0 text-decoration-none"
+                                        onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit();">
+                                        <i class="bi bi-check-lg" style="font-size: 40px; cursor:pointer;"></i>
+                                    </a>
+                                    <form id="accept-answer-{{ $answer->id }}" action="{{ route('answers.accept', $answer->id) }}" method="POST" style="display:none;">
+                                        @csrf
+                                    </form>
+                                @else
+                                    @if($answer->is_best)
+                                    <a title="The question owner accepted this answer as best answer"
+                                        class="{{ $answer->status }} d-flex flex-column gap-0 text-decoration-none">
+                                        <i class="bi bi-check-lg" style="font-size: 40px; cursor:pointer;"></i>
+                                    </a> 
+                                    @endif
+                                @endcan
                             </div>
                         </div>
                         <div>
