@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Question;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -60,5 +61,10 @@ class User extends Authenticatable
     {
         // return route("questions.show", $this->id);
         return "#";
+    }
+
+    public function favorites(): BelongsToMany
+    {
+        return $this->belongsToMany(Question::class, 'favorites')->withTimestamps();
     }
 }

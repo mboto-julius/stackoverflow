@@ -22,10 +22,18 @@
                             <a title="This question is not useful" href="" class="vote-down off">
                                 <i class="bi bi-caret-down-fill" style="font-size: 34px; color:#909090;"></i>
                             </a>
-                            <a href="" class="d-flex flex-column gap-0 text-decoration-none">
-                                <i title="Click to mark as favorite question (click again to undo)" class="bi bi-star-fill" style="font-size: 30px; color:#000DFF;"></i>
-                                <span class="favourites-count" style="color:#000DFF;">129</span>
+                            <a style="cursor: pointer" title="Click to mark as favorite question (click again to undo)"
+                                class="d-flex flex-column gap-0 text-decoration-none {{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited': '') }}"
+                                onclick="event.preventDefault(); document.getElementById('favorite-question-{{ $question->id }}').submit();">
+                                <i class="bi bi-star-fill" style="font-size: 30px;"></i>
+                                <span class="favourites-count d-flex justify-content-center">{{ $question->favorites_count }}</span>
                             </a>
+                            <form id="favorite-question-{{ $question->id }}" action="/questions/{{ $question->id }}/favorites" method="POST" style="display:none;">
+                                @csrf
+                                @if($question->is_favorited)
+                                    @method('DELETE')
+                                @endif
+                            </form>
                         </div>
                         <div class="d-flex flex-column">
                             <div>
