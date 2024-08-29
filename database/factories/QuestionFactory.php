@@ -28,7 +28,7 @@ class QuestionFactory extends Factory
             'body' => fake()->paragraphs(rand(3, 7), true),
             'views' => rand(0, 10),
             'answers_count' => rand(0, 10),
-            'votes' => rand(-3, 10),
+            // 'votes_count' => rand(-3, 10), 
             'best_answer_id' => null,
             'created_at' => $createdAt,
             'updated_at' => fake()->dateTimeBetween($createdAt, 'now'),

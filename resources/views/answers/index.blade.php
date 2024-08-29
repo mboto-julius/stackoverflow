@@ -11,13 +11,29 @@
                     <div class="d-flex">
                         <div>
                             <div class="vote-controls mx-3 d-flex flex-column align-items-center">
-                                <a title="This answer is useful" href="" class="vote-up">
-                                    <i class="bi bi-caret-up-fill" style="font-size: 34px; color:#545454;"></i>
+                                <a title="This answer is useful" 
+                                    href="" 
+                                    class="vote-up {{ Auth::guest() ? 'off' : '' }}"
+                                    onclick="event.preventDefault(); document.getElementById('up-vote-answer-{{ $answer->id }}').submit();"
+                                >
+                                <i class="bi bi-caret-up-fill" style="font-size: 34px; color:#545454;"></i>
                                 </a>
-                                <span class="votes-count fs-4">1500</span>
-                                <a title="This answer is not useful" href="" class="vote-down off">
+                                <form id="up-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
+                                    @csrf
+                                    <input type="hidden" name="vote" value="1">
+                                </form>
+                                <span class="votes-count fs-4">{{ $answer->votes_count }}</span>
+                                <a title="This answer is not useful" 
+                                    style="cursor: pointer"
+                                    class="vote-down {{ Auth::guest() ? 'off' : '' }}"
+                                    onclick="event.preventDefault(); document.getElementById('down-vote-answer-{{ $answer->id }}').submit();"
+                                    >
                                     <i class="bi bi-caret-down-fill" style="font-size: 34px; color:#909090;"></i>
                                 </a>
+                                <form id="down-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display:none;">
+                                    @csrf
+                                    <input type="hidden" name="vote" value="-1">
+                                </form>
                                 @can('accept', $answer)
                                     <a title="Mark this answer as best answer"
                                         class="{{ $answer->status }} d-flex flex-column gap-0 text-decoration-none"
