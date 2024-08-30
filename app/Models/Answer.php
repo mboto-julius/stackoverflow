@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
 use App\Models\Question;
+use App\Traits\VotableTrait;
 
 class Answer extends Model
 {
-    use HasFactory;
+    use HasFactory, VotableTrait;
 
     protected $fillable = ['body', 'user_id', 'question_id'];
 
@@ -59,19 +60,4 @@ class Answer extends Model
             }
         });
     } 
-
-    public function votes()
-    {
-        return $this->morphToMany(User::class, 'votable');
-    }
-
-    public function upVotes()
-    {
-        return $this->votes()->wherePivot('vote', 1);
-    }
-
-    public function downVotes()
-    {
-        return $this->votes()->wherePivot('vote', -1);
-    }
 }
